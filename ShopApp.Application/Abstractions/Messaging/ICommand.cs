@@ -1,0 +1,8 @@
+﻿using MediatR;
+using ShopApp.Domain.Common;
+
+namespace ShopApp.Application.Abstractions.Messaging;
+
+public interface ICommand : IRequest<Result> { }
+public interface ICommand<TResponse> : IRequest<Result<TResponse>> { }
+public interface IQuery<TResponse> : IRequest<Result<TResponse>> { }

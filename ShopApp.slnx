@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path="README.md" />
   </Folder>
   <Project Path="ShopApp.Api/ShopApp.Api.csproj" />
   <Project Path="ShopApp.Application/ShopApp.Application.csproj" />

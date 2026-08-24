@@ -1,6 +1,7 @@
 ﻿
 using ShopApp.Domain.Common;
 using ShopApp.Domain.Exceptions;
+using ShopApp.Domain.ValueObjects;
 
 namespace ShopApp.Domain.Entities;
 
@@ -21,10 +22,10 @@ public class Product
     public static Result<Product> Create(string name, string description, Money price)
     {
         if (string.IsNullOrWhiteSpace(name))
-            return Result<Product>.Failure("Product.Name", "Name is required");
+            return Result<Product>.Failure(new Error("500", "Product: Name is required"));
 
         if (price.Amount <= 0)
-            return Result<Product>.Failure("Product.Price", "Price must be positive");
+            return Result<Product>.Failure(new Error("500", "Product: Price must be positive"));
         return Result<Product>.Success(new Product
         {
             Id = Guid.NewGuid(),
@@ -41,10 +42,4 @@ public class Product
 
         StockQuantity -= quantity;
     }
-}
-// Domain/ValueObjects/Money.cs
-public record Money(decimal Amount, string Currency)
-{
-    public static Money USD(decimal amount) => new(amount, "USD");
-    public static Money EUR(decimal amount) => new(amount, "EUR");
 }

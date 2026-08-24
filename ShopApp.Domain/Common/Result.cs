@@ -1,25 +1,50 @@
-﻿namespace ShopApp.Domain.Common;
+﻿
+namespace ShopApp.Domain.Common;
 
-public class Result<T>
+public class Result
 {
     public bool IsSuccess { get; }
+
     public bool IsFailure => !IsSuccess;
 
-    public T? Value { get; }
+    public Error Error { get; }
 
-    public string? ErrorCode { get; }
-    public string? ErrorMessage { get; }
+    protected Result(
+        bool isSuccess,
+        Error error)
+    {
+        IsSuccess = isSuccess;
+        Error = error;
+    }
+
+    public static Result Success()
+    {
+        return new Result(
+            isSuccess: true,
+            Error.None);
+    }
+
+    public static Result Failure(Error error)
+    {
+        ArgumentNullException.ThrowIfNull(error);
+
+        return new Result(
+            isSuccess: false,
+            error);
+    }
+}
+
+public sealed class Result<T> : Result
+{
+    public T? Value { get; }
 
     private Result(
         bool isSuccess,
         T? value,
-        string? errorCode,
-        string? errorMessage)
+        Error error)
+        : base(isSuccess, error)
     {
-        IsSuccess = isSuccess;
         Value = value;
-        ErrorCode = errorCode;
-        ErrorMessage = errorMessage;
     }
 
     public static Result<T> Success(T value)
@@ -28,22 +53,26 @@ public class Result<T>
 
         return new Result<T>(
             isSuccess: true,
-            value: value,
-            errorCode: null,
-            errorMessage: null);
+            value,
+            Error.None);
     }
 
-    public static Result<T> Failure(
-        string errorCode,
-        string errorMessage)
+    public static Result<T> Failure(Error error)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(errorCode);
-        ArgumentException.ThrowIfNullOrWhiteSpace(errorMessage);
+        ArgumentNullException.ThrowIfNull(error);
 
         return new Result<T>(
             isSuccess: false,
-            value: default,
-            errorCode: errorCode,
-            errorMessage: errorMessage);
+            default,
+            error);
     }
+}
+
+public sealed record Error(
+    string Code,
+    string Message)
+{
+    public static readonly Error None = new(
+        string.Empty,
+        string.Empty);
 }

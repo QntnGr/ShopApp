@@ -1,4 +1,5 @@
 ﻿using ShopApp.Domain.Common;
+using ShopApp.Domain.ValueObjects;
 
 namespace ShopApp.Domain.Entities;
 
@@ -32,30 +33,30 @@ public class OrderItem
     {
         if (productId == Guid.Empty)
         {
-            return Result<OrderItem>.Failure(
+            return Result<OrderItem>.Failure( new Error(
                 "OrderItem.ProductId",
-                "Product is required");
+                "Product is required"));
         }
 
         if (unitPrice is null)
         {
-            return Result<OrderItem>.Failure(
+            return Result<OrderItem>.Failure( new Error(
                 "OrderItem.UnitPrice",
-                "Unit price is required");
+                "Unit price is required"));
         }
 
         if (unitPrice.Amount <= 0)
         {
-            return Result<OrderItem>.Failure(
+            return Result<OrderItem>.Failure( new Error(
                 "OrderItem.UnitPrice",
-                "Unit price must be positive");
+                "Unit price must be positive"));
         }
 
         if (quantity <= 0)
         {
-            return Result<OrderItem>.Failure(
+            return Result<OrderItem>.Failure( new Error(
                 "OrderItem.Quantity",
-                "Quantity must be greater than zero");
+                "Quantity must be greater than zero"));
         }
 
         var orderItem = new OrderItem
@@ -73,9 +74,9 @@ public class OrderItem
     {
         if (quantity <= 0)
         {
-            return Result<OrderItem>.Failure(
+            return Result<OrderItem>.Failure( new Error(
                 "OrderItem.Quantity",
-                "Quantity must be greater than zero");
+                "Quantity must be greater than zero"));
         }
 
         Quantity = quantity;
