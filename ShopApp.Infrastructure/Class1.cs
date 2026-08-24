@@ -1,7 +1,6 @@
-﻿namespace ShopApp.Infrastructure
-{
-    public class Class1
-    {
+﻿namespace ShopApp.Infrastructure;
 
-    }
+public class Class1
+{
+
 }

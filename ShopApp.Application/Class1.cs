@@ -1,7 +1,6 @@
-﻿namespace ShopApp.Application
-{
-    public class Class1
-    {
+﻿namespace ShopApp.Application;
 
-    }
+public class Class1
+{
+
 }

@@ -1,7 +1,6 @@
-﻿namespace ShopApp.Domain
-{
-    public class Class1
-    {
+﻿namespace ShopApp.Domain;
 
-    }
+public class Class1
+{
+
 }
