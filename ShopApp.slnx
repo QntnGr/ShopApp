@@ -3,6 +3,9 @@
     <File Path=".editorconfig" />
     <File Path="README.md" />
   </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Architecture.Tests/Architecture.Tests.csproj" Id="f0ccf718-b026-4065-ab7f-4883889a2d91" />
+  </Folder>
   <Project Path="ShopApp.Api/ShopApp.Api.csproj" />
   <Project Path="ShopApp.Application/ShopApp.Application.csproj" />
   <Project Path="ShopApp.Domain/ShopApp.Domain.csproj" />
