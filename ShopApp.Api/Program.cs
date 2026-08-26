@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopApp.Infrastructure.Persistence;
 using ShopApp.Application;
 using ShopApp.Infrastructure;
+using ShopApp.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.AddOpenTelemetryConfiguration();
 
 var app = builder.Build();
 
@@ -32,8 +34,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-//app.UseGlobalExceptionHandler();
 
 app.UseAuthorization();
 
