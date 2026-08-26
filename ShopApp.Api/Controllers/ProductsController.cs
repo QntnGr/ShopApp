@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ShopApp.Api.Contracts.Products;
 using ShopApp.Application.Features.Products.Commands.CreateProduct;
-using ShopApp.Application.Features.Products.Queries;
+using ShopApp.Application.Features.Products.Queries.GetAllProducts;
+using ShopApp.Application.Features.Products.Queries.GetProductById;
 
 namespace ShopApp.Api.Controllers;
 
@@ -15,6 +16,18 @@ public class ProductsController : ControllerBase
     {
         _mediator = mediator;
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll(CancellationToken ct)
+    {
+        var query = new GetAllProductsQuery();
+        var result = await _mediator.Send(query, ct);
+
+        return result.IsSuccess
+            ? Ok(result.Value)
+            : NotFound();
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
     {
@@ -25,6 +38,7 @@ public class ProductsController : ControllerBase
             ? Ok(result.Value)
             : NotFound();
     }
+
     [HttpPost]
     public async Task<IActionResult> Create(
         CreateProductRequest request,

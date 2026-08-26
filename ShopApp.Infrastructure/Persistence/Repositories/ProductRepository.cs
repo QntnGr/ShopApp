@@ -30,7 +30,9 @@ public class ProductRepository : IProductRepository
 
     public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await _context.Products.ToListAsync(cancellationToken);
+        return await _context.Products
+            .Take(100)
+            .ToListAsync(cancellationToken);
     }
 
     public void Remove(Product product)
