@@ -18,12 +18,16 @@ public static class OpenTelemetryConfigurationExtensions
             .AddOpenTelemetry()
             .WithMetrics(metrics =>
             {
-                metrics.AddAspNetCoreInstrumentation();
-                metrics.AddRuntimeInstrumentation();
+                metrics
+                .AddAspNetCoreInstrumentation()
+                .AddRuntimeInstrumentation()
+                .AddConsoleExporter();
             })
             .WithTracing(tracing =>
             {
-                tracing.AddAspNetCoreInstrumentation();
+                tracing
+                .AddAspNetCoreInstrumentation()
+                .AddConsoleExporter();
             });
 
         return builder;
